@@ -1,4 +1,18 @@
 # ruff: noqa
+# Copyright 2026 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
 import datetime
 import os
 import re
@@ -22,7 +36,7 @@ from google.genai import types
 
 from app.config import config
 
-# Set up Gemini model
+# Initialize Gemini Model
 model = Gemini(model=config.model)
 
 # Wire MCP Server Tools using Stdio transport (auto-connecting to our local server)
@@ -36,16 +50,19 @@ mcp_toolset = McpToolset(
 )
 
 # -----------------------------------------------------------------------------
-# LLM Sub-Agents
+# LLM Sub-Agents with Enhanced System Instructions
 # -----------------------------------------------------------------------------
 
 competitor_intel_agent = LlmAgent(
     name="competitor_intel_agent",
     model=model,
-    instruction="""You are a Competitor Intelligence specialist.
-Analyze competitor pricing, promotions, and product releases.
-Query the competitor pricing tool for the competitor's details.
-Assess threat level and summarize findings.""",
+    instruction="""You are the Lead Market Intelligence Specialist at RevenueGuard.
+Your objective is to analyze competitive threat vectors facing our customers.
+You will query the competitor pricing tool using the provided competitor ID.
+Analyze competitor pricing drops, promotional campaigns, and feature releases.
+Evaluate the threat level to our B2B accounts (High, Medium, or Low).
+Provide a detailed structured analysis of the competitor's actions and why it poses a threat.
+Format your output with clear markdown headers and bullet points.""",
     tools=[mcp_toolset],
     output_key="competitor_intel"
 )
@@ -53,10 +70,11 @@ Assess threat level and summarize findings.""",
 customer_health_agent = LlmAgent(
     name="customer_health_agent",
     model=model,
-    instruction="""You are a Customer Success Health Specialist.
-Analyze customer churn risk based on usage, support tickets, and history.
-Use the customer usage tool and the churn scoring tool to obtain health data.
-Summarize customer status.""",
+    instruction="""You are the Director of Customer Success Analytics at RevenueGuard.
+Your objective is to assess the account health and churn risk of our customers.
+Use the customer usage tool and the churn scoring tool to retrieve and analyze usage trends, active users, ticket volume, and payment status.
+Summarize the health status of the account, identifying key risk triggers (e.g., negative usage trends, high support ticket volumes, overdue invoices).
+Provide a clear, metric-driven summary formatted in markdown.""",
     tools=[mcp_toolset],
     output_key="customer_health"
 )
@@ -64,9 +82,13 @@ Summarize customer status.""",
 revenue_risk_agent = LlmAgent(
     name="revenue_risk_agent",
     model=model,
-    instruction="""You are a Financial Risk Analyst.
-Read the competitor intelligence ({competitor_intel}) and customer health ({customer_health}).
-Use the revenue risk estimation tool to calculate and explain the financial exposure.""",
+    instruction="""You are the Chief Financial Risk Officer at RevenueGuard.
+Your objective is to calculate the financial impact of potential customer churn.
+Read the competitor intelligence report: {competitor_intel}
+Read the customer health assessment: {customer_health}
+Use the estimate_revenue_at_risk tool to compute the annualized revenue exposure.
+Explain the risk factor and outline the financial implications of losing this account.
+Format your output professionally in markdown with bold metrics.""",
     tools=[mcp_toolset],
     output_key="revenue_risk"
 )
@@ -74,11 +96,15 @@ Use the revenue risk estimation tool to calculate and explain the financial expo
 retention_strategy_agent = LlmAgent(
     name="retention_strategy_agent",
     model=model,
-    instruction="""You are a Customer Retention Strategist.
-Read customer health ({customer_health}) and revenue risk ({revenue_risk}).
-Recommend a tailored retention plan (e.g. discount, customer success call, onboarding).
-If recommending a discount, specify the discount percentage (e.g., '15%' or '25%').
-Use the log retention action tool to record recommended strategies.""",
+    instruction="""You are the Head of Customer Retention and Growth Strategy.
+Based on the Customer Success Health report ({customer_health}) and the Financial Risk analysis ({revenue_risk}), recommend a targeted, high-impact retention action plan.
+Your plan should recommend one or more of:
+- A tailored discount (specify exact percentage, e.g. 15% or 25%).
+- A high-priority Customer Success executive call.
+- A customized onboarding/training intervention.
+Provide detailed business reasoning for your recommendation.
+If recommending a discount, clearly specify the percentage.
+Use the log_retention_action tool to log your recommended strategy.""",
     tools=[mcp_toolset],
     output_key="retention_strategy"
 )
@@ -86,15 +112,16 @@ Use the log retention action tool to record recommended strategies.""",
 executive_summary_agent = LlmAgent(
     name="executive_summary_agent",
     model=model,
-    instruction="""You are the Executive Summary Agent.
-Generate a final comprehensive report for the leadership team.
-Include:
-1. Executive Risk Level (Low/Medium/High)
-2. Competitor Intel Summary (based on {competitor_intel})
-3. Customer Success Health Status (based on {customer_health})
-4. Revenue at Risk (based on {revenue_risk})
-5. Final Decision on Retention Actions (status: {approval_status}, approved by: {approved_by})
-6. Action Plan (with clear bullet points)""",
+    instruction="""You are the Vice President of Revenue Operations at RevenueGuard.
+Your task is to compile a premium, comprehensive Executive Revenue Protection Report for the leadership team.
+Your report must be highly professional, structured, and contain:
+- A visual indicator of the **Executive Risk Level** (Low/Medium/High) using emojis.
+- A **Key Metrics Table** showing Customer ID, Churn Risk, and Proposed Discount.
+- A detailed summary of **Competitor Threat Intel** (based on {competitor_intel}).
+- A summary of **Customer Health Status** (based on {customer_health}).
+- The calculated **Financial Exposure** (based on {revenue_risk}).
+- The finalized **Retention Strategy Action Plan** (based on {retention_strategy}) and its **Approval Status** (status: {approval_status}, approved by: {approved_by}).
+Format the output with rich markdown, bullet points, and clean typography.""",
     output_key="executive_summary"
 )
 
@@ -116,6 +143,11 @@ Do not formulate the final risk or retention strategies yourself.""",
 
 @node
 async def security_checkpoint(ctx: Context, node_input: types.Content):
+    # Initialize expected context keys with empty strings to prevent KeyError in agent system instructions
+    for key in ["competitor_intel", "customer_health", "revenue_risk", "retention_strategy", "approval_status", "approved_by"]:
+        if key not in ctx.state:
+            ctx.state[key] = ""
+
     text_input = ""
     if isinstance(node_input, types.Content):
         for part in node_input.parts:
@@ -123,6 +155,8 @@ async def security_checkpoint(ctx: Context, node_input: types.Content):
                 text_input += part.text
     elif isinstance(node_input, str):
         text_input = node_input
+
+
 
     # 1. PII Scrubbing
     email_pattern = r'[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+'
@@ -246,4 +280,3 @@ app = App(
     root_agent=root_agent,
     name="app",
 )
-
