@@ -5,7 +5,7 @@
 
 ---
 
-![Cover Banner](file:///Users/sai/Desktop/Kaggle/revenueguard/assets/cover_page_banner.png)
+![Cover Banner](assets/cover_page_banner.png)
 
 ---
 
@@ -98,9 +98,9 @@ Run these prompts in the playground to test core logic:
 ---
 
 ## 📂 Project Structure & Assets
-- **Workflow Diagram:** [assets/architecture_diagram.png](file:///Users/sai/Desktop/Kaggle/revenueguard/assets/architecture_diagram.png)
-- **Spoken Demo Script:** [DEMO_SCRIPT.txt](file:///Users/sai/Desktop/Kaggle/revenueguard/DEMO_SCRIPT.txt)
-- **Submission Writeup:** [SUBMISSION_WRITEUP.md](file:///Users/sai/Desktop/Kaggle/revenueguard/SUBMISSION_WRITEUP.md)
+- **Workflow Diagram:** [assets/architecture_diagram.png](assets/architecture_diagram.png)
+- **Spoken Demo Script:** [DEMO_SCRIPT.txt](DEMO_SCRIPT.txt)
+- **Submission Writeup:** [SUBMISSION_WRITEUP.md](SUBMISSION_WRITEUP.md)
 
 > [!WARNING]
 > **API Rate Limits:** The Gemini free tier has a rate limit of 5 requests/min. If you encounter a `429 RESOURCE_EXHAUSTED` error, wait 60 seconds before retrying.
