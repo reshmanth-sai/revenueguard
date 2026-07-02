@@ -95,12 +95,45 @@ Run these prompts in the playground to test core logic:
   {"timestamp": "2026-07-02T11:29:53Z", "pii_redacted": true, "injection_detected": false, "severity": "INFO"}
   ```
 
----
+## 📂 Project Structure
+```text
+revenueguard/
+├── app/                  # Main Application logic
+│   ├── agent.py          # Core ADK 2.0 multi-agent workflow graph
+│   ├── mcp_server.py     # FastMCP database integration server
+│   ├── agent_runtime_app.py # Production agent wrapper runtime
+│   └── config.py         # Configs (Gemini model parameters)
+├── assets/               # Visual project assets
+│   ├── architecture_diagram.png # 16:9 Dark-themed node routing visualizer
+│   └── cover_page_banner.png    # 16:9 Premium splash project banner
+├── tests/                # Testing Suite
+│   ├── conftest.py       # Offline LLM & GCP authorization mocks
+│   ├── integration/      # End-to-end multi-agent test routes
+│   └── unit/             # Node validator unit tests
+├── DEMO_SCRIPT.txt       # Narrated presentation script for manual runs
+└── SUBMISSION_WRITEUP.md # Architectural and security writeup details
+```
 
-## 📂 Project Structure & Assets
-- **Workflow Diagram:** [assets/architecture_diagram.png](assets/architecture_diagram.png)
-- **Spoken Demo Script:** [DEMO_SCRIPT.txt](DEMO_SCRIPT.txt)
-- **Submission Writeup:** [SUBMISSION_WRITEUP.md](SUBMISSION_WRITEUP.md)
+## 🧠 Detailed Agent Panel Roles
+1. **Orchestrator Agent:** Coordinates the flow and acts as a supervisor, querying sub-agents to compile inputs.
+2. **Competitor Intel Agent:** Evaluates competitor pricing strategies, marketing discounts, and feature releases.
+3. **Customer Health Agent:** Queries CRM usage analytics, user trends, and support tickets to calculate an empirical churn risk index.
+4. **Revenue Risk Agent:** Quantifies the financial exposure in USD based on account value and contract period.
+5. **Retention Strategy Agent:** Formulates optimal discounts or customer success calls and logs decisions to the database.
+6. **Executive Summary Agent:** Compiles the finalized multi-agent findings into a professional corporate leadership report.
+
+## 🔌 Data Integration & Tools (FastMCP)
+The local FastMCP server exposes tools that ground the intelligence flow in actual database records:
+- `get_competitor_pricing(competitor_id: str)`: Returns current competitive threats.
+- `get_customer_usage(customer_id: str)`: Returns monthly usage stats, active users, and support tickets.
+- `calculate_churn_score(customer_id: str, usage_trend: float, ticket_count: int)`: Heuristically scores churn risk between 0.0 and 1.0.
+- `estimate_revenue_at_risk(customer_id: str, churn_score: float)`: Estimates revenue impact of customer churn.
+- `log_retention_action(customer_id: str, action: str, discount: float)`: Records approved strategical decisions.
+
+## 📂 Project Assets
+- 📊 **Workflow Diagram:** [assets/architecture_diagram.png](assets/architecture_diagram.png)
+- 📝 **Submission Write-up:** [SUBMISSION_WRITEUP.md](SUBMISSION_WRITEUP.md)
+- 🎙️ **Narrated Demo Script:** [DEMO_SCRIPT.txt](DEMO_SCRIPT.txt)
 
 > [!WARNING]
 > **API Rate Limits:** The Gemini free tier has a rate limit of 5 requests/min. If you encounter a `429 RESOURCE_EXHAUSTED` error, wait 60 seconds before retrying.
