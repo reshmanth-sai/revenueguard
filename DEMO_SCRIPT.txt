@@ -1,0 +1,39 @@
+[0:00 — HOOK]
+Every year, B2B SaaS companies lose millions of dollars because they fail to realize when a customer is about to leave for a competitor until it is too late. I built RevenueGuard 2.0 to solve this exact problem, giving customer success and revenue teams a secure, real-time alert system to protect at-risk revenue.
+
+[0:20 — WHAT IT IS]
+RevenueGuard 2.0 is an autonomous multi-agent AI system built on the ADK 2.0 Workflow framework, representing the Agents for Business track. It connects product analytics, competitor pricing intelligence, and financial risk assessment into one unified interface.
+
+[0:40 — SHOW THE BANNER]
+(show assets/cover_page_banner.png)
+At a glance, RevenueGuard monitors competitor pricing drops, calculates a customer's churn risk, and proposes targeted, human-approved retention campaigns before the contract ends. (pause)
+
+[1:00 — ARCHITECTURE]
+(show assets/architecture_diagram.png)
+Let's walk through the architecture diagram to see how this works behind the scenes.
+First, the user's query enters the Security Checkpoint node, which scrubs any PII like email addresses and screens for prompt injection threats.
+Once validated, the request routes to the Orchestrator node.
+The Orchestrator acts as our supervisor and delegates to two specialized sub-agents: the Competitor Intel Agent and the Customer Health Agent.
+Both sub-agents connect directly to our local FastMCP Server, which acts as our database integration to retrieve real-time competitor pricing and customer usage trends.
+Next, these reports flow into the Revenue Risk Agent, which calculates the annualized financial exposure.
+The strategist agent then proposes a custom retention plan, like a discount or strategic CS call.
+If the strategist proposes a discount above 20 percent, the workflow hits a Human Approval Pause node.
+Once approved, the final report is compiled by the Executive Summary Agent and logged into the CRM.
+
+[2:00 — LIVE DEMO]
+(switch to playground at localhost:18081)
+Let's see this in action in the ADK Playground.
+(pause)
+First, I will input our first test case: "Please analyze customer account ACC-101 and competitor COMP-A. I heard competitor COMP-A dropped their pricing recently."
+Notice how the security checkpoint passes this query. The competitor agent retrieves CloudCorp's new pricing of $85 per user, and the customer success agent flags TechCorp's declining usage. Because the risk is high, the strategist recommends a 25 percent discount. Since 25 percent is greater than our 20 percent safety cap, the workflow pauses.
+In the playground UI, I can see the prompt: "High discount of 25% proposed. Please approve or deny."
+I will type "approve". (pause)
+The workflow resumes, logs the action to our CRM via the MCP tool, and the Executive Summary Agent presents the final report to leadership.
+Now, let's look at the second case. If I type "Check account ACC-102 and competitor COMP-B", the customer health agent flags that BizGrow has growing usage. Churn risk is extremely low, so no discount is recommended. The workflow auto-approves and generates the executive report without pausing.
+Finally, if a malicious prompt is entered to override instructions, the security checkpoint detects it instantly, blocks the execution, logs a critical audit entry, and shows a security warning.
+
+[3:00 — SECURITY & MCP]
+What makes this system robust is its enterprise readiness. The security checkpoint scrubs email and account IDs automatically while keeping a structured audit log of every operation. The local FastMCP server makes sure that our AI models are grounded in real CRM datasets, rather than halluncinating client information.
+
+[3:30 — IMPACT / CLOSE]
+By bridging market intelligence and customer success, RevenueGuard 2.0 protects profit margins with strict approval gates, reduces churn, and turns manual analysis that used to take days into instant, secure, and actionable intelligence. Thank you.
