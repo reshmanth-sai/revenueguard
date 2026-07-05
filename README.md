@@ -39,7 +39,7 @@ Unlike a traditional chatbot, RevenueGuard coordinates multiple specialized AI a
 
 # 🏗️ System Architecture
 
-![Architecture](assets/architecture_diagram.png)
+![Architecture](assets/architecture_diagram.jpg)
 
 ```mermaid
 graph TD
@@ -307,7 +307,7 @@ revenueguard/
 │   └── mcp_server.py
 │
 ├── assets/
-│   ├── architecture_diagram.png
+│   ├── architecture_diagram.jpg
 │   └── cover_page_banner.png
 │
 ├── tests/
@@ -356,7 +356,7 @@ RevenueGuard has been tested against
 | Asset | Description |
 |--------|-------------|
 | 🎥 Demo Video | *(Add YouTube link)* |
-| 📊 Architecture | [assets/architecture_diagram.png](assets/architecture_diagram.png) |
+| 📊 Architecture | [assets/architecture_diagram.jpg](assets/architecture_diagram.jpg) |
 | 📝 Write-up | [SUBMISSION_WRITEUP.md](SUBMISSION_WRITEUP.md) |
 | 🎙️ Demo Script | [DEMO_SCRIPT.txt](DEMO_SCRIPT.txt) |
 
