@@ -9,7 +9,7 @@ RevenueGuard is an autonomous multi-agent AI system built on the ADK 2.0 Workflo
 At a glance, RevenueGuard monitors competitor pricing drops, calculates a customer's churn risk, and proposes targeted, human-approved retention campaigns before the contract ends. (pause)
 
 [1:00 — ARCHITECTURE]
-(show assets/architecture_diagram.jpg)
+(show assets/architecture_diagram.png)
 Let's walk through the architecture diagram to see how this works behind the scenes.
 First, the user's query enters the Security Checkpoint node, which scrubs any PII like email addresses and screens for prompt injection threats.
 Once validated, the request routes to the Orchestrator node.
