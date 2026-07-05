@@ -1,4 +1,4 @@
-# 🛡️ RevenueGuard 2.0
+# 🛡️ RevenueGuard
 > **Autonomous Multi-Agent Revenue Protection Engine**
 > 
 > A secure, production-ready AI workflow that monitors competitor threats, evaluates account health, and recommends human-gated retention strategies to mitigate customer churn.
@@ -10,7 +10,7 @@
 ---
 
 ## 💡 Overview
-RevenueGuard 2.0 answers a critical B2B SaaS question: **"Which customers are at risk of leaving due to competitor actions, and what should we do about it?"**
+RevenueGuard answers a critical B2B SaaS question: **"Which customers are at risk of leaving due to competitor actions, and what should we do about it?"**
 
 This system connects siloed data sources (competitor tracking, customer usage history, CRM logs) using a multi-agent framework built with the **Google Agent Development Kit (ADK 2.0)**.
 

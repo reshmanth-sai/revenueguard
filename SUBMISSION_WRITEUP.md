@@ -1,4 +1,4 @@
-# RevenueGuard 2.0 — Submission Write-up
+# RevenueGuard — Submission Write-up
 
 ## Problem Statement
 B2B SaaS companies lose millions of dollars annually due to customer churn. A critical churn vector is aggressive competitor pricing and product releases. Currently, customer success and B2B pricing analysts work in silos:
@@ -84,7 +84,7 @@ Any discount recommendation above 20% is caught by the `hitl_approval_checkpoint
 - **Execution:** Checkpoint flags the threat, logs a `CRITICAL` audit alert, routes to the breach handler, and outputs a security alert without executing the agents.
 
 ## Impact / Value Statement
-RevenueGuard 2.0 bridges B2B pricing strategy and Customer Success. Key outcomes:
+RevenueGuard bridges B2B pricing strategy and Customer Success. Key outcomes:
 - **Reduces Churn:** Proactively intercepts competitor switch vectors.
 - **Protects Profit Margins:** Standardizes automated compliance and locks discount controls behind a secure human approval gate.
 - **Increases Operational Efficiency:** Cuts down multi-department manual analytics from days to seconds.

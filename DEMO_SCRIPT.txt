@@ -1,8 +1,8 @@
 [0:00 — HOOK]
-Every year, B2B SaaS companies lose millions of dollars because they fail to realize when a customer is about to leave for a competitor until it is too late. I built RevenueGuard 2.0 to solve this exact problem, giving customer success and revenue teams a secure, real-time alert system to protect at-risk revenue.
+Every year, B2B SaaS companies lose millions of dollars because they fail to realize when a customer is about to leave for a competitor until it is too late. I built RevenueGuard to solve this exact problem, giving customer success and revenue teams a secure, real-time alert system to protect at-risk revenue.
 
 [0:20 — WHAT IT IS]
-RevenueGuard 2.0 is an autonomous multi-agent AI system built on the ADK 2.0 Workflow framework, representing the Agents for Business track. It connects product analytics, competitor pricing intelligence, and financial risk assessment into one unified interface.
+RevenueGuard is an autonomous multi-agent AI system built on the ADK 2.0 Workflow framework, representing the Agents for Business track. It connects product analytics, competitor pricing intelligence, and financial risk assessment into one unified interface.
 
 [0:40 — SHOW THE BANNER]
 (show assets/cover_page_banner.png)
@@ -36,4 +36,4 @@ Finally, if a malicious prompt is entered to override instructions, the security
 What makes this system robust is its enterprise readiness. The security checkpoint scrubs email and account IDs automatically while keeping a structured audit log of every operation. The local FastMCP server makes sure that our AI models are grounded in real CRM datasets, rather than halluncinating client information.
 
 [3:30 — IMPACT / CLOSE]
-By bridging market intelligence and customer success, RevenueGuard 2.0 protects profit margins with strict approval gates, reduces churn, and turns manual analysis that used to take days into instant, secure, and actionable intelligence. Thank you.
+By bridging market intelligence and customer success, RevenueGuard protects profit margins with strict approval gates, reduces churn, and turns manual analysis that used to take days into instant, secure, and actionable intelligence. Thank you.
