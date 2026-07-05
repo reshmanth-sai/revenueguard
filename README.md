@@ -42,41 +42,28 @@ Unlike a traditional chatbot, RevenueGuard coordinates multiple specialized AI a
 ![Architecture](assets/architecture_diagram.png)
 
 ```mermaid
-flowchart TD
+graph TD
+    START[User Request] --> SECURITY[Security Check]
 
-    A([👤 User Request])
+    SECURITY -->|Blocked| BREACH[Breach Handler]
 
-    A --> B{🛡️ Security Check}
+    SECURITY -->|Passed| ORCH[Orchestrator Agent]
 
-    B -->|Threat Detected| C[🚨 Security Breach Handler]
+    ORCH --> COMP[Competitor Intel Agent]
 
-    B -->|Validated| D[🎯 Orchestrator Agent]
+    ORCH --> HEALTH[Customer Health Agent]
 
-    subgraph "🤖 Multi-Agent Intelligence"
-        direction LR
-        E[📊 Competitor Intelligence]
-        F[📈 Customer Health]
-    end
+    COMP --> MCP[FastMCP Server]
 
-    D --> E
-    D --> F
+    HEALTH --> MCP
 
-    E --> G[(⚡ FastMCP Tools)]
-    F --> G
+    MCP --> RISK[Revenue Risk Agent]
 
-    G --> H[💰 Revenue Risk Agent]
+    RISK --> STRATEGY[Retention Strategy Agent]
 
-    H --> I[🧠 Retention Strategy Agent]
+    STRATEGY --> HITL[Human Approval]
 
-    I --> J{✋ Human Approval?}
-
-    J -->|Discount > 20%| K[👨💼 Human Review]
-
-    K --> J
-
-    J -->|Approved / Auto Approved| L[📄 Executive Summary]
-
-    J -->|Rejected| M[❌ Recommendation Rejected]
+    HITL --> SUMMARY[Executive Summary]
 ```
 
 ---
