@@ -58,27 +58,41 @@ Rather than one large prompt attempting to solve every problem, each agent perfo
 ## 🏗️ System Architecture
 
 ```mermaid
-graph TD
-    USER[User Request] --> SECURITY[Security Checkpoint]
-    SECURITY -->|Threat Detected| BREACH[Security Breach Handler]
-    SECURITY -->|Validated| ORCH[Orchestrator Agent]
-    
-    subgraph Multi-Agent Intelligence Panel
-        ORCH --> COMP[Competitor Intelligence Agent]
-        ORCH --> HEALTH[Customer Health Agent]
+flowchart TD
+
+    A([👤 User Request])
+
+    A --> B{🛡️ Security Check}
+
+    B -->|Threat Detected| C[🚨 Security Breach Handler]
+
+    B -->|Validated| D[🎯 Orchestrator Agent]
+
+    subgraph "🤖 Multi-Agent Intelligence"
+        direction LR
+        E[📊 Competitor Intelligence]
+        F[📈 Customer Health]
     end
-    
-    COMP --> MCP[FastMCP Server]
-    HEALTH --> MCP
-    
-    MCP --> RISK[Revenue Risk Agent]
-    RISK --> STRATEGY[Retention Strategy Agent]
-    STRATEGY --> HITL[Human Approval Gate]
-    
-    HITL -->|Discount > 20%| Human[Human Approval Pause ✋]
-    Human -->|Approved/Denied| HITL
-    
-    HITL --> SUMMARY[Executive Summary Agent]
+
+    D --> E
+    D --> F
+
+    E --> G[(⚡ FastMCP Tools)]
+    F --> G
+
+    G --> H[💰 Revenue Risk Agent]
+
+    H --> I[🧠 Retention Strategy Agent]
+
+    I --> J{✋ Human Approval?}
+
+    J -->|Discount > 20%| K[👨💼 Human Review]
+
+    K --> J
+
+    J -->|Approved / Auto Approved| L[📄 Executive Summary]
+
+    J -->|Rejected| M[❌ Recommendation Rejected]
 ```
 
 ---
