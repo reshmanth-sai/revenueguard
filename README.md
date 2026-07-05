@@ -61,7 +61,7 @@ graph TD
 
     RISK --> STRATEGY[Retention Strategy Agent]
 
-    STRATEGY --> HITL[Human Approval]
+    STRATEGY --> HITL[Human Approval Gate]
 
     HITL --> SUMMARY[Executive Summary]
 ```
@@ -109,7 +109,7 @@ Agent              Agent
              ▼
 Retention Strategy Agent
              ▼
-Human Approval (if required)
+Human Approval Gate (if required)
              ▼
  Executive Summary Report
 ```

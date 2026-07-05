@@ -84,7 +84,7 @@ flowchart TD
 
     H --> I[🧠 Retention Strategy Agent]
 
-    I --> J{✋ Human Approval?}
+    I --> J{✋ Human Approval Gate?}
 
     J -->|Discount > 20%| K[👨💼 Human Review]
 
